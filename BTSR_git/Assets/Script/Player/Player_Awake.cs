@@ -17,6 +17,8 @@ public class Player_Awake : MonoBehaviour
         PlayerCharaSet();
         PlayerWpS1Set();
         _ps.enabled = true;
+        //TeamList.Instance.AddTeam("Player", this.gameObject);
+
         if (_pv.IsMine)
         {
             _pm.enabled = true;

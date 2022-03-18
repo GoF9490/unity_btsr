@@ -7,7 +7,7 @@ public class Player_Lookat : MonoBehaviour
     [SerializeField] PlayerStatus ps;
     public Transform _tf;
     [SerializeField] Transform _dircon;
-    [SerializeField] List<GameObject> _enemy;
+    //[SerializeField] List<GameObject> _enemy;
 
     [SerializeField] GameObject _mousePos;
 
@@ -19,7 +19,7 @@ public class Player_Lookat : MonoBehaviour
         ps = gameObject.GetComponent<PlayerStatus>();
         _tf = this.gameObject.transform;
         _dircon = ps.GetDircon();
-        _enemy = GameObject.Find("TeamSplit").GetComponent<TeamList>()._enemy;
+        //_enemy = GameObject.Find("TeamSplit").GetComponent<TeamList>()._enemy;
         //ps._mousePosition = GameObject.Find("MousePosition");
         _mousePos = ps._mousePosition;
     }
@@ -133,12 +133,12 @@ public class Player_Lookat : MonoBehaviour
 
     void AutoTarget()
     {
-        _targetDes = Vector2.Distance(gameObject.transform.position, _enemy[0].transform.position);
+        _targetDes = Vector3.Distance(gameObject.transform.position, TeamList.Instance._enemy[0].transform.position);
 
-        ps.Target(_enemy[0]);
-        foreach (GameObject found in _enemy)
+        ps.Target(TeamList.Instance._enemy[0]);
+        foreach (GameObject found in TeamList.Instance._enemy)
         {
-            float distance = Vector2.Distance(gameObject.transform.position, found.transform.position);
+            float distance = Vector3.Distance(gameObject.transform.position, found.transform.position);
 
             if (distance < _targetDes)
             {

@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: -2128006616703878061}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +125,6 @@ MonoBehaviour:
   ps: {fileID: 0}
   _tf: {fileID: 0}
   _dircon: {fileID: 0}
-  _enemy: []
   _mousePos: {fileID: 0}
 --- !u!114 &1944597275358665018
 MonoBehaviour:

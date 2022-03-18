@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         _camera.GetComponent<Player_Camera>().SetPlayer(player);
         _camera.GetComponent<Player_Camera>()._follow = true;
         Debug.Log("카메라 세팅");
+
+        TeamList.Instance.SerchTeam();
     }
 
     void CreateEnemy()
