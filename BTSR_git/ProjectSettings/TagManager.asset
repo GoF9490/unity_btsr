@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Team1
+  - Enemy_Att
   layers:
   - Default
   - TransparentFX

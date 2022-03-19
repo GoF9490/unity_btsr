@@ -9,6 +9,8 @@ using Photon.Pun;
 
 public class Boss01_Pattern : EnemyPattern
 {
+    [SerializeField] GameObject[] _attackObj;
+
     [Header("DashPattern")]
     [SerializeField] GameObject _dashRange;
     [SerializeField] Transform _dashPointObj;
@@ -59,6 +61,7 @@ public class Boss01_Pattern : EnemyPattern
                 //딴곳에 집어넣을거
                 _patternCool = 1;
                 _pattern = 0;
+                _attackObj[0].SetActive(false);
             }
         }
     }
@@ -78,6 +81,7 @@ public class Boss01_Pattern : EnemyPattern
 
     void Dash1()
     {
+        _attackObj[0].SetActive(true);
         _dash = true;
     }
 }
