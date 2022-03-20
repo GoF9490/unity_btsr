@@ -10,7 +10,8 @@ public class Beam : MonoBehaviour//Pun
     [SerializeField] private GameObject _beam;
     [SerializeField] private GameObject _ScaleDistance;
     [SerializeField] private GameObject _hitEff;
-   // private PhotonView _pv;
+    [SerializeField] LayerMask _layer;
+    // private PhotonView _pv;
 
     [SerializeField] private float _beamSize = 1;
     //[SerializeField] private GameObject _beamEff;  //  use?
@@ -51,7 +52,7 @@ public class Beam : MonoBehaviour//Pun
 
             //Debug.DrawRay(transform.position, transform.forward, Color.red);
 
-            if (Physics.Raycast(transform.position, transform.forward, out hit, _bulletStat.GetRange()))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, _bulletStat.GetRange(), _layer, QueryTriggerInteraction.Ignore))
             {
                 CheckHit(hit.collider.gameObject);
                 _ScaleDistance.transform.localScale = new Vector3(_beamSize, _beamSize, hit.distance);

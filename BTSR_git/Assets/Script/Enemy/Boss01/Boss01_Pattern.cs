@@ -55,7 +55,7 @@ public class Boss01_Pattern : EnemyPattern
 
             if (_dashTime >= 1)
             {
-                _tf.position = _dashPoint;
+                _rb.MovePosition(_dashPoint);
                 _dash = false;
                 _dashTime = 0;
                 //딴곳에 집어넣을거

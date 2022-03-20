@@ -32,9 +32,40 @@ public class HPUIMnanger : MonoBehaviour
         _p4HP.gameObject.SetActive(false);
     }
 
-    public void ChangeEnemyHP(int hpMax, int hp)
+    public void HPUI_Enemy(int hpMax, int hp)
     {
         _enemyHP.maxValue = hpMax;
         _enemyHP.value = hp;
+    }
+
+    public void HPUI_Player(int num, int hpMax, int hp)
+    {
+        switch (num)
+        {
+            case 1:
+                {
+                    _p1HP.maxValue = hpMax;
+                    _p1HP.value = hp;
+                    return;
+                }
+            case 2:
+                {
+                    _p2HP.maxValue = hpMax;
+                    _p2HP.value = hp;
+                    return;
+                }
+            case 3:
+                {
+                    _p3HP.maxValue = hpMax;
+                    _p3HP.value = hp;
+                    return;
+                }
+            case 4:
+                {
+                    _p4HP.maxValue = hpMax;
+                    _p4HP.value = hp;
+                    return;
+                }
+        }
     }
 }

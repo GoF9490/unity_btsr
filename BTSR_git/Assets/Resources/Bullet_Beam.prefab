@@ -109,6 +109,9 @@ MonoBehaviour:
   _beam: {fileID: 4594336900658753162}
   _ScaleDistance: {fileID: 4594336900268228050}
   _hitEff: {fileID: 3675839721081011034}
+  _layer:
+    serializedVersion: 2
+    m_Bits: 1
   _beamSize: 1
 --- !u!114 &-3325844438704739823
 MonoBehaviour:

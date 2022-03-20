@@ -11,6 +11,7 @@ public class HealthStatus : MonoBehaviourPun
     int _hp = 0;
 
     [SerializeField] bool _dead = false;
+    [SerializeField] bool _enemy = false;
 
     private void Start()
     {
@@ -38,7 +39,8 @@ public class HealthStatus : MonoBehaviourPun
 
         if (_hp <= 0) _dead = true;
 
-        HPUIMnanger.Instance.ChangeEnemyHP(_maxHP, _hp);
+        if (_enemy) HPUIMnanger.Instance.HPUI_Enemy(_maxHP, _hp);
+        else HPUIMnanger.Instance.HPUI_Player(GameManager.Instance.GetLocalNum(), _maxHP, _hp);
     }
 
     
