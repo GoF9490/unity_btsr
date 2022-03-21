@@ -31,7 +31,7 @@ public class Beam : MonoBehaviour//Pun
 
     void Shoot()
     {
-        /*
+        /* 타겟의 위치를 잡고서 그 거리만큼 이펙트 길이를 잡는 방식, 사거리 무한이라 폐기.
         if (ps._target != null)
         {
             transform.LookAt(ps._target.transform);
@@ -68,7 +68,7 @@ public class Beam : MonoBehaviour//Pun
         }
     }
 
-    void CheckHit(GameObject hit)
+    public void CheckHit(GameObject hit)
     {
         if (hit.GetComponent<HitPoint>())
         {

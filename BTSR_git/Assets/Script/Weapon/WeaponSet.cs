@@ -49,8 +49,10 @@ public class WeaponSet : MonoBehaviourPun
 
     void Attack()
     {
-        PhotonNetwork.Instantiate(_shot.name, _muzzle.position, _ps.transform.rotation)
+        /* 생산방식, 오브젝트풀 방식으로 연구해볼것.
+         * PhotonNetwork.Instantiate(_shot.name, _muzzle.position, _ps.transform.rotation)
             .GetComponent<PhotonView>().RPC("SetStat", RpcTarget.AllBuffered, _wpDmg, _wpRan);
+         */
     }
 
     /* 안쓸듯?

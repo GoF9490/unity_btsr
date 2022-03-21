@@ -31,6 +31,17 @@ public class Beam_Eff : MonoBehaviour
         }
     }
 
+    /* 최후의 수단 (그마저 연구필요)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Enemy"))
+        {
+            _beam.GetComponent<Beam>().CheckHit(other.gameObject);
+            this.gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
+    }
+    */
+
     void BeamEff()
     {
         _beamSize -= Time.deltaTime * _sizeDownSpeed;

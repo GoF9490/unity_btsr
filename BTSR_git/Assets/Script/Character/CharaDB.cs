@@ -20,12 +20,12 @@ public class CharaDB : MonoBehaviour
 
     private void Start()
     {
-        AddChara("None", 0);
-        AddChara("Guardner", 1);
+        AddChara("None", 0, 0);
+        AddChara("Guardner", 1, 1000);
     }
 
-    void AddChara(string charaName, int charaNum)
+    void AddChara(string charaName, int charaNum, int charaHP)
     {
-        _charaMap.Add(charaNum, new Chara(charaName, charaNum));
+        _charaMap.Add(charaNum, new Chara(charaName, charaNum, charaHP));
     }
 }

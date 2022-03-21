@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 4594336900807756528}
   - component: {fileID: 4594336900807756527}
   - component: {fileID: 6040815059180071512}
+  - component: {fileID: 3775008994246231327}
   m_Layer: 0
   m_Name: beamEff
   m_TagString: Untagged
@@ -243,6 +244,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _beam: {fileID: 4594336900658753162}
   _sizeDownSpeed: 1
+--- !u!65 &3775008994246231327
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4594336900807756525}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4594336901195941387
 PrefabInstance:
   m_ObjectHideFlags: 0
