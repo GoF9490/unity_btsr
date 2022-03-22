@@ -27,12 +27,13 @@ public class WeaponDB : MonoBehaviour
 
     private void Start()
     {
-        AddWp("None", 0, WeaponType.beam, 0, 0, 0);
-        AddWp("BeamRifle", 1, WeaponType.beam, 100, 100, 2);
+        // 이름, 넘버, 타입, 데미지, 장탄수(0이면 무한), 사거리, 쿨타임(장전시간), 선딜레이(무기를 드는 순간), 발사간격
+        AddWp("None", 0, WeaponType.beam, 0, 0, 0, 0, 0, 0);
+        AddWp("BeamRifle", 1, WeaponType.beam, 100, 0, 100, 2, 0.3f, 2);
     }
 
-    void AddWp(string _wpName, int _wpNum, WeaponType _wpType, int _wpDmg, float _wpRan, float _wpCool)
+    void AddWp(string wpName, int wpNum, WeaponType wpType, int wpDmg, int wpMagazine, float wpRan, float wpCool, float wpStartup, float wpDelay)
     {
-        _wpMapS1.Add(_wpNum, new WeaponS1(_wpName, _wpNum, _wpType, _wpDmg, _wpRan, _wpCool)); ;
+        _wpMapS1.Add(wpNum, new WeaponS1(wpName, wpNum, wpType, wpDmg, wpMagazine, wpRan, wpCool, wpStartup, wpDelay)); ;
     }
 }

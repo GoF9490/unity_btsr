@@ -6,14 +6,17 @@ public class Player_WeaponS1 : MonoBehaviour
 {
     PlayerStatus _ps;
     //일단 빔라이플 용으로
-    WeaponType _weaponType = WeaponType.beam;
+    WeaponType _wpType = WeaponType.beam;
     int _wpDmg = 0;
+    int _wpMagazine = 0;
     float _wpRan = 0;
     float _wpCool = 1;
-    float _wpDelay = 0.3f;
+    float _wpStartup = 0;
+    float _wpDelay = 0;
 
-    [SerializeField]
-    float _attCool = 0;
+    [SerializeField] float _attCool = 0;
+    [SerializeField] float _nonCombat = 0;
+    [SerializeField] float _useMagazine = 0;
 
     public GameObject _weapon;
 
@@ -38,11 +41,15 @@ public class Player_WeaponS1 : MonoBehaviour
     void GetWeaponStat()
     {
         int wps1 = PlayerDataCon.Instance.GetWeaponS1Num();
-        _weaponType = WeaponDB.Instance._wpMapS1[wps1]._weaponType;
-        _wpDmg = WeaponDB.Instance._wpMapS1[wps1]._weaponDamage;
-        _wpRan = WeaponDB.Instance._wpMapS1[wps1]._weaponRange;
-        _wpCool = WeaponDB.Instance._wpMapS1[wps1]._weaponCooldown;
-        //_wpDelay = WeaponDB.Instance._wpMapS1[wps1]._weapon; 딜레이 변수 만들것
+        _wpType = WeaponDB.Instance._wpMapS1[wps1]._wpType;
+        _wpDmg = WeaponDB.Instance._wpMapS1[wps1]._wpDamage;
+        _wpMagazine = WeaponDB.Instance._wpMapS1[wps1]._wpMagazine;
+        _wpRan = WeaponDB.Instance._wpMapS1[wps1]._wpRange;
+        _wpCool = WeaponDB.Instance._wpMapS1[wps1]._wpCooldown;
+        _wpStartup = WeaponDB.Instance._wpMapS1[wps1]._wpStartup;
+        _wpDelay = WeaponDB.Instance._wpMapS1[wps1]._wpDelay;
+
+        _useMagazine = _wpMagazine;
 
         _weapon = _ps._weaponS1;
         _weapon.GetComponent<WeaponSet>()._ps = _ps;
@@ -57,13 +64,16 @@ public class Player_WeaponS1 : MonoBehaviour
             return;
         }
         
-
         InrangeCheck();
+
+        if (_wpMagazine > 0 && _useMagazine <= 0) // magazine check
+        {
+            _ps.SetAttack(false);
+            return;
+        }
 
         if (_ps.GetAttack() && _attCool <= 0)
         {
-            _attCool = _wpCool;
-            //GameObject shot = Instantiate(_shot, _muzzle.position, Quaternion.identity);
             _weapon.GetComponent<WeaponSet>().SendMessage("Attack");
         }
     }
@@ -81,8 +91,16 @@ public class Player_WeaponS1 : MonoBehaviour
     {
         if (_ps.GetAttack())
         {
+            if (_wpMagazine > 0) _nonCombat = _wpCool;
             if (_attCool > 0) _attCool -= Time.deltaTime;
         }
-        else _attCool = _wpDelay;
+        else
+        {
+            if (_attCool > _wpStartup) _attCool -= Time.deltaTime;
+            else _attCool = _wpStartup;
+
+            if (_nonCombat > 0) _nonCombat -= Time.deltaTime;
+            else if (_useMagazine < _wpMagazine) _useMagazine = _wpMagazine;
+        }
     }
 }
