@@ -23,6 +23,7 @@ public class WeaponSet : MonoBehaviourPun
     public PlayerStatus _ps;
     PhotonView _pv;
 
+    [SerializeField] GameObject _bulletContain;
     [SerializeField] GameObject _shot;
     [SerializeField] int _magazine = 0;
     [SerializeField] int _wpDmg = 0;
@@ -34,6 +35,11 @@ public class WeaponSet : MonoBehaviourPun
     {
         _pv = this.photonView;
         _muzzle = transform.Find("Muzzle").Find("Muzzle");
+        if (_pv.IsMine)
+        {
+            GameObject contain = PhotonNetwork.Instantiate(_bulletContain.name, new Vector3(0, 0, 0), Quaternion.identity);
+            _bulletContain = contain;
+        }
     }
 
     private void FixedUpdate()
@@ -47,7 +53,12 @@ public class WeaponSet : MonoBehaviourPun
         this._wpRan = wpRan;
     }
 
-    void Attack()
+    public void Attack(Vector3 vec, bool hit)
+    {
+
+    }
+
+    public void Attack()
     {
         /* 생산방식, 오브젝트풀 방식으로 연구해볼것.
          * PhotonNetwork.Instantiate(_shot.name, _muzzle.position, _ps.transform.rotation)

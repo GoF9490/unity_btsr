@@ -17,6 +17,7 @@ public class Player_WeaponS1 : MonoBehaviour
     [SerializeField] float _attCool = 0;
     [SerializeField] float _nonCombat = 0;
     [SerializeField] float _useMagazine = 0;
+    [SerializeField] LayerMask _layer;
 
     public GameObject _weapon;
 
@@ -30,7 +31,7 @@ public class Player_WeaponS1 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Attack();
+        AttackCheck();
     }
 
     private void LateUpdate()
@@ -56,34 +57,63 @@ public class Player_WeaponS1 : MonoBehaviour
         _weapon.GetComponent<WeaponSet>().SetWeaponStat(_wpDmg, _wpRan);
     }
 
-    void Attack()
+    void AttackCheck()
     {     
         if (!_ps._lockon || _ps.GetDelay() == true) // 형식상
         {
             _ps.SetAttack(false);
             return;
         }
-        
-        InrangeCheck();
 
-        if (_wpMagazine > 0 && _useMagazine <= 0) // magazine check
+        if (_ps._target != _ps._mousePosition && _ps._targetDistance > _wpRan) // Inrange check
         {
             _ps.SetAttack(false);
             return;
         }
 
+        if (_wpMagazine > 0) // magazine check
+        {
+            if (_useMagazine <= 0)
+            {
+                _ps.SetAttack(false);
+                return;
+            }
+        }
+
+        _ps.SetAttack(true);
+
         if (_ps.GetAttack() && _attCool <= 0)
         {
-            _weapon.GetComponent<WeaponSet>().SendMessage("Attack");
+            Attack();
         }
     }
 
-    void InrangeCheck()
+    void Attack()
     {
-        if (_ps._target != _ps._mousePosition)
+        _attCool = _wpDelay;
+        if (_wpMagazine > 0) _useMagazine -= 1;
+        //_weapon.GetComponent<WeaponSet>().SendMessage("Attack");
+
+        if (_wpType == WeaponType.beam)
         {
-            if (_ps._targetDistance <= _wpRan) _ps.SetAttack(true);
-            else _ps.SetAttack(false);
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit, _wpRan, _layer, QueryTriggerInteraction.Ignore))
+            {
+                CheckHit(hit.collider.gameObject);
+                Vector3 vec = hit.transform.position;
+                _weapon.GetComponent<WeaponSet>().Attack(vec, true);
+                //포지션 위치 weaponSet에 매개변수로서 함수 호출, 오브젝트 폴링 연구
+            }
+            else
+            {
+                Vector3 vec = transform.forward * _wpRan;
+                _weapon.GetComponent<WeaponSet>().Attack(vec, false);
+            }
+        }
+        else if (_wpType == WeaponType.bullet)
+        {
+
         }
     }
 
@@ -101,6 +131,17 @@ public class Player_WeaponS1 : MonoBehaviour
 
             if (_nonCombat > 0) _nonCombat -= Time.deltaTime;
             else if (_useMagazine < _wpMagazine) _useMagazine = _wpMagazine;
+        }
+    }
+
+    public void CheckHit(GameObject hit)
+    {
+        if (hit.tag.Equals("Enemy"))
+        {
+            if (hit.GetComponent<HitPoint>())
+            {
+                hit.GetComponent<HitPoint>().HitCheck(_wpDmg);
+            }
         }
     }
 }

@@ -42,8 +42,6 @@ public class Beam : MonoBehaviour//Pun
 
             _hitEff.SetActive(true);
             _hitEff.transform.position = ps._target.transform.position;
-
-            Destroy(this.gameObject, 1.5f);
         }
 
         else */
@@ -54,7 +52,7 @@ public class Beam : MonoBehaviour//Pun
 
             if (Physics.Raycast(transform.position, transform.forward, out hit, _bulletStat.GetRange(), _layer, QueryTriggerInteraction.Ignore))
             {
-                CheckHit(hit.collider.gameObject);
+                //CheckHit(hit.collider.gameObject);
                 _ScaleDistance.transform.localScale = new Vector3(_beamSize, _beamSize, hit.distance);
 
                 _hitEff.SetActive(true);
@@ -65,14 +63,6 @@ public class Beam : MonoBehaviour//Pun
             {
                 _ScaleDistance.transform.localScale = new Vector3(_beamSize, _beamSize, _bulletStat.GetRange());
             }
-        }
-    }
-
-    public void CheckHit(GameObject hit)
-    {
-        if (hit.GetComponent<HitPoint>())
-        {
-            hit.GetComponent<HitPoint>().HitCheck(_bulletStat.GetDmg());
         }
     }
 }
