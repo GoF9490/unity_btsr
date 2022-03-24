@@ -41,34 +41,27 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void CreatePlayer()
     {
-        Vector3 vec = new Vector3(0, 0, 0);
         var spawnPosition = _spawnPositions[_localPlayerIndex - 1];
 
-        GameObject mouse = Instantiate(_mousePosition, vec, Quaternion.identity);
-        GameObject dircon = Instantiate(_dirCon, vec, Quaternion.identity);
-        Debug.Log("방향 컨트롤러 및 액티브 타겟 세팅"); 
+        GameObject mouse = Instantiate(_mousePosition);
+        GameObject dircon = Instantiate(_dirCon);
+        //Debug.Log("방향 컨트롤러 및 액티브 타겟 세팅"); 
 
-        Instantiate(_charaDB, spawnPosition.position, Quaternion.identity);
-        Debug.Log("캐릭터 데이터베이스 생성");
-        //PlayerCharaSet(player, charaDB);
-        //_pv.RPC("PlayerCharaSet", RpcTarget.AllBuffered);
-        //Debug.Log("캐릭터 모델링 세팅");
+        Instantiate(_charaDB);
+        //Debug.Log("캐릭터 데이터베이스 생성");
 
-        Instantiate(_weaponDB, spawnPosition.position, Quaternion.identity);
-        Debug.Log("무기 데이터베이스 생성");
-        //PlayerWpS1Set(player, weaponDB);
-        //_pv.RPC("PlayerWpS1Set", RpcTarget.AllBuffered);
-        //Debug.Log("무기 모델링 세팅");
+        Instantiate(_weaponDB);
+        //Debug.Log("무기 데이터베이스 생성");
 
         GameObject player = PhotonNetwork.Instantiate(_player.name, spawnPosition.position, Quaternion.identity);
-        Debug.Log("플레이어 생성");
+        //Debug.Log("플레이어 생성");
 
         player.GetComponent<Player_Awake>().SetMouseDircon(mouse, dircon);
-        Debug.Log("플레이어 어웨이크");
+        //Debug.Log("플레이어 어웨이크");
 
         _camera.GetComponent<Player_Camera>().SetPlayer(player);
         _camera.GetComponent<Player_Camera>()._follow = true;
-        Debug.Log("카메라 세팅");
+        //Debug.Log("카메라 세팅");
 
         TeamList.Instance.SerchTeam();
     }

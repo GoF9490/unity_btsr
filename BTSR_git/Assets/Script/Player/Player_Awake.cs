@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Player_Awake : MonoBehaviour
+public class Player_Awake : MonoBehaviourPun
 {
     [SerializeField] PhotonView _pv;
     [SerializeField] PlayerStatus _ps;
@@ -14,10 +14,14 @@ public class Player_Awake : MonoBehaviour
 
     void Start()
     {
-        PlayerCharaSet();
-        PlayerWpS1Set();
+        _pv = this.gameObject.GetComponent<PhotonView>();
+        if (_pv.IsMine)
+        {
+            _pv.RPC("PlayerCharaSet", RpcTarget.AllBuffered, PlayerDataCon.Instance.GetCharaNum());
+            _pv.RPC("PlayerWpS1Set", RpcTarget.AllBuffered, PlayerDataCon.Instance.GetWeaponS1Num());
+        }
         _ps.enabled = true;
-        //TeamList.Instance.AddTeam("Player", this.gameObject);
+        TeamList.Instance.AddTeam("Player", this.gameObject);
 
         if (_pv.IsMine)
         {
@@ -28,21 +32,23 @@ public class Player_Awake : MonoBehaviour
         }
     }
 
-    void PlayerCharaSet()
+    [PunRPC]
+    void PlayerCharaSet(int charaNum)
     {
-        int charaNum = PlayerDataCon.Instance.GetCharaNum();
+        //int charaNum = PlayerDataCon.Instance.GetCharaNum();
         GameObject charaObj0 = CharaDB.Instance.gameObject.transform.GetChild(charaNum - 1).gameObject;
         GameObject charaObj = Instantiate(charaObj0, transform.position, Quaternion.identity);
         charaObj.transform.parent = this.transform;
         charaObj.transform.localPosition = new Vector3(0, 0, 0);
         charaObj.transform.localEulerAngles = new Vector3(0, 0, 0);
         charaObj.SetActive(true);
-        Debug.Log("캐릭터 모델링 세팅");
+        //Debug.Log("캐릭터 모델링 세팅");
     }
 
-    void PlayerWpS1Set()
+    [PunRPC]
+    void PlayerWpS1Set(int wps1Num)
     {
-        int wps1Num = PlayerDataCon.Instance.GetCharaNum();
+        //int wps1Num = PlayerDataCon.Instance.GetWeaponS1Num();
         GameObject wps1Obj0 = WeaponDB.Instance.gameObject.transform.GetChild(wps1Num - 1).gameObject;
         GameObject wps1Obj = Instantiate(wps1Obj0, transform.position, Quaternion.identity);
         wps1Obj.transform.parent = this.gameObject.GetComponentInChildren<EquipPoint>()._handR.transform;
@@ -50,7 +56,7 @@ public class Player_Awake : MonoBehaviour
         wps1Obj.transform.localEulerAngles = new Vector3(0, 0, 0);
         this.gameObject.GetComponent<PlayerStatus>()._weaponS1 = wps1Obj;
         wps1Obj.SetActive(true);
-        Debug.Log("무기 모델링 세팅");
+        //Debug.Log("무기 모델링 세팅");
     }
 
     public void SetMouseDircon(GameObject mouse, GameObject dircon)

@@ -16,6 +16,13 @@ using Photon.Realtime;
         attack.GetComponent<BulletStat>()._parent = _muzzle;
         attack.transform.parent = null;
         attack.SetActive(true);
+
+
+        if (_pv.IsMine)
+        {
+            GameObject contain = PhotonNetwork.Instantiate(_bulletContain.name, new Vector3(0, 0, 0), Quaternion.identity);
+            _bulletContain = contain;
+        }
  */
 
 public class WeaponSet : MonoBehaviourPun
@@ -35,11 +42,8 @@ public class WeaponSet : MonoBehaviourPun
     {
         _pv = this.photonView;
         _muzzle = transform.Find("Muzzle").Find("Muzzle");
-        if (_pv.IsMine)
-        {
-            GameObject contain = PhotonNetwork.Instantiate(_bulletContain.name, new Vector3(0, 0, 0), Quaternion.identity);
-            _bulletContain = contain;
-        }
+        GameObject BulletContain = Instantiate(_bulletContain, new Vector3(0, 0, 0), Quaternion.identity);
+        _bulletContain = BulletContain;
     }
 
     private void FixedUpdate()

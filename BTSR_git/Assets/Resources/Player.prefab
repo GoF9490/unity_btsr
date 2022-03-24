@@ -155,6 +155,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attCool: 0
+  _nonCombat: 0
+  _useMagazine: 0
+  _layer:
+    serializedVersion: 2
+    m_Bits: 0
   _weapon: {fileID: 0}
 --- !u!114 &3980422863468743340
 MonoBehaviour:
