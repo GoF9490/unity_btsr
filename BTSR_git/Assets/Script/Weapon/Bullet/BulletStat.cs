@@ -9,18 +9,20 @@ public class BulletStat : MonoBehaviourPun
     [SerializeField] private int _dmg = 0;
     [SerializeField] private float _range = 0; // use?
 
-    Vector3 _startPoint;
-    Vector3 _endPoint;
+    public bool _hit = false;
+    public Vector3 _startPoint;
+    public Vector3 _endPoint;
 
     public void SetBC(BulletContainer bc)
     {
         this._bc = bc;
     }
 
-    public void SetPoint(Vector3 startPoint, Vector3 endPoint)
+    public void SetPoint(Vector3 startPoint, Vector3 endPoint, bool hit)
     {
         this._startPoint = startPoint;
         this._endPoint = endPoint;
+        this._hit = hit;
     }
 
     public int GetDmg()
@@ -38,5 +40,10 @@ public class BulletStat : MonoBehaviourPun
     {
         this._dmg = dmg;
         this._range = range;
+    }
+
+    public void CallEnqueue()
+    {
+        _bc.Enqueue(this.gameObject);
     }
 }

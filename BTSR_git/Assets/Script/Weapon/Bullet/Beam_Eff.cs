@@ -36,6 +36,6 @@ public class Beam_Eff : MonoBehaviour
         _beamSize -= Time.deltaTime * _sizeDownSpeed;
         tf.localScale = new Vector3(_beamSize, _beamSize, tf.localScale.z);
 
-        if (_beamSize <= 0) Destroy(_beam);
+        if (_beamSize <= 0) _beam.GetComponent<BulletStat>().CallEnqueue();
     }
 }

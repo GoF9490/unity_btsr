@@ -24,7 +24,7 @@ public class BulletContainer : MonoBehaviour
         _bulletPool.Enqueue(bullet);
     }
 
-    public void Dequeue(Vector3 startPoint, Vector3 endPoint)
+    public void Dequeue(Vector3 startPoint, Vector3 endPoint, bool hit = false)
     {
         if (_bulletPool.Count <= 0)
         {
@@ -32,8 +32,9 @@ public class BulletContainer : MonoBehaviour
         }
 
         GameObject bullet = _bulletPool.Dequeue();
-        bullet.GetComponent<BulletStat>().SetPoint(startPoint, endPoint);
+        bullet.GetComponent<BulletStat>().SetPoint(startPoint, endPoint, hit);
         bullet.SetActive(true);
+        //bullet에서 bulletstat에 있는 좌표값을 활용해서 작동하도록 설계ㄱㄱ
     }
 
     public void Enqueue(GameObject bullet)

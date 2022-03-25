@@ -100,14 +100,15 @@ public class Player_WeaponS1 : MonoBehaviour
 
             if (Physics.Raycast(transform.position, transform.forward, out hit, _wpRan, _layer, QueryTriggerInteraction.Ignore))
             {
+                Debug.Log("attack1");
                 CheckHit(hit.collider.gameObject);
-                Vector3 vec = hit.transform.position;
+                Vector3 vec = hit.point;
                 _weapon.GetComponent<WeaponSet>().Attack(vec, true);
-                //포지션 위치 weaponSet에 매개변수로서 함수 호출, 오브젝트 폴링 연구
             }
             else
             {
-                Vector3 vec = transform.forward * _wpRan;
+                Vector3 vec = transform.position + transform.forward * _wpRan;
+                Debug.Log("attack2");
                 _weapon.GetComponent<WeaponSet>().Attack(vec, false);
             }
         }

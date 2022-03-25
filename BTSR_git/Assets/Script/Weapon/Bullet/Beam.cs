@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Beam : MonoBehaviour//Pun
 {
-    private BulletStat _bulletStat;
+    private BulletStat _bs;
 
     [SerializeField] private GameObject _beam;
     [SerializeField] private GameObject _ScaleDistance;
@@ -16,10 +16,10 @@ public class Beam : MonoBehaviour//Pun
     [SerializeField] private float _beamSize = 1;
     //[SerializeField] private GameObject _beamEff;  //  use?
 
-    private void Start()
+    private void OnEnable()
     {
-        _bulletStat = this.gameObject.GetComponent<BulletStat>();
-       // _pv = this.gameObject.GetComponent<PhotonView>();
+        _bs = this.gameObject.GetComponent<BulletStat>();
+        // _pv = this.gameObject.GetComponent<PhotonView>();
 
         Shoot();
     }
@@ -27,11 +27,27 @@ public class Beam : MonoBehaviour//Pun
     private void OnDisable()
     {
         transform.localScale = new Vector3(_beamSize, _beamSize, _beamSize);
+        _hitEff.SetActive(false);
     }
 
     void Shoot()
     {
-        /* 타겟의 위치를 잡고서 그 거리만큼 이펙트 길이를 잡는 방식, 사거리 무한이라 폐기.
+        transform.position = _bs._startPoint;
+        transform.LookAt(_bs._endPoint);
+        Vector3 vec = _bs._startPoint - _bs._endPoint;
+        _ScaleDistance.transform.localScale = new Vector3(_beamSize, _beamSize, Vector3.Magnitude(vec));
+
+        if (_bs._hit)
+        {
+            _hitEff.SetActive(true);
+            _hitEff.transform.position = _bs._endPoint;
+        }
+    }
+
+    /*
+    void Shoot() // 구버전, 폐기.
+    {
+         타겟의 위치를 잡고서 그 거리만큼 이펙트 길이를 잡는 방식, 사거리 무한이라 폐기.
         if (ps._target != null)
         {
             transform.LookAt(ps._target.transform);
@@ -44,7 +60,7 @@ public class Beam : MonoBehaviour//Pun
             _hitEff.transform.position = ps._target.transform.position;
         }
 
-        else */
+        else 
         {
             RaycastHit hit;
 
@@ -64,5 +80,7 @@ public class Beam : MonoBehaviour//Pun
                 _ScaleDistance.transform.localScale = new Vector3(_beamSize, _beamSize, _bulletStat.GetRange());
             }
         }
+        
     }
+    */
 }

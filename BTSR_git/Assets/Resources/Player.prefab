@@ -159,7 +159,7 @@ MonoBehaviour:
   _useMagazine: 0
   _layer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   _weapon: {fileID: 0}
 --- !u!114 &3980422863468743340
 MonoBehaviour:

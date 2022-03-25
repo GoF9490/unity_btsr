@@ -250,10 +250,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ps: {fileID: 0}
+  _bulletContain: {fileID: 1734830727105070061, guid: f6ce79f91d11741458777de5c8810588,
+    type: 3}
   _shot: {fileID: 4594336900658753162, guid: b032ca5104a211b40acb8117077509c5, type: 3}
   _magazine: 0
-  _wpDmg: 100
-  _wpRan: 100
+  _wpDmg: 0
+  _wpRan: 0
   _muzzle: {fileID: 0}
 --- !u!114 &8466943613141846999
 MonoBehaviour:

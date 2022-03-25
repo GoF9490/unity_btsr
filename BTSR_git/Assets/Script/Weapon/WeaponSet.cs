@@ -59,7 +59,7 @@ public class WeaponSet : MonoBehaviourPun
 
     public void Attack(Vector3 vec, bool hit)
     {
-
+        _bulletContain.GetComponent<BulletContainer>().Dequeue(_muzzle.position, vec, hit);
     }
 
     public void Attack()
