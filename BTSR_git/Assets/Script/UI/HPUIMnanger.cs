@@ -38,6 +38,33 @@ public class HPUIMnanger : MonoBehaviour
         _enemyHP.value = hp;
     }
 
+    public void HPUI_On(int num)
+    {
+        switch (num)
+        {
+            case 1:
+                {
+                    _p1HP.gameObject.SetActive(true);
+                    return;
+                }
+            case 2:
+                {
+                    _p2HP.gameObject.SetActive(true);
+                    return;
+                }
+            case 3:
+                {
+                    _p3HP.gameObject.SetActive(true);
+                    return;
+                }
+            case 4:
+                {
+                    _p4HP.gameObject.SetActive(true);
+                    return;
+                }
+        }
+    }
+
     public void HPUI_Player(int num, int hpMax, int hp)
     {
         switch (num)

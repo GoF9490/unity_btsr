@@ -89,6 +89,7 @@ MonoBehaviour:
   _pl: {fileID: 1944597275358665016}
   _pw: {fileID: 1944597275358665018}
   _pd: {fileID: 3980422863468743340}
+  _hs: {fileID: 2011290901533603683}
 --- !u!114 &1944597275358665019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf837ce99b230fb4eaee6fc7f636b19a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 1000
+  _maxHP: 1
+  _hp: 1
   _dead: 0
   _enemy: 0

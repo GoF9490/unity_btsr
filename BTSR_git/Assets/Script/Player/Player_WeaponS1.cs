@@ -25,7 +25,12 @@ public class Player_WeaponS1 : MonoBehaviour
     {
         _ps = this.gameObject.GetComponent<PlayerStatus>();
 
-        GetWeaponStat();
+        //SetWeaponStat();
+        _useMagazine = _wpMagazine;
+
+        _weapon = _ps._weaponS1;
+        //_weapon.GetComponent<WeaponSet>()._ps = _ps;
+        _weapon.GetComponent<WeaponSet>().SetWeaponStat(_wpDmg, _wpRan);
 
     }
 
@@ -39,9 +44,9 @@ public class Player_WeaponS1 : MonoBehaviour
         Cooling();
     }
 
-    void GetWeaponStat()
+    public void SetWeaponStat(int wps1)
     {
-        int wps1 = PlayerDataCon.Instance.GetWeaponS1Num();
+        //int wps1 = PlayerDataCon.Instance.GetWeaponS1Num();
         _wpType = WeaponDB.Instance._wpMapS1[wps1]._wpType;
         _wpDmg = WeaponDB.Instance._wpMapS1[wps1]._wpDamage;
         _wpMagazine = WeaponDB.Instance._wpMapS1[wps1]._wpMagazine;
@@ -49,12 +54,6 @@ public class Player_WeaponS1 : MonoBehaviour
         _wpCool = WeaponDB.Instance._wpMapS1[wps1]._wpCooldown;
         _wpStartup = WeaponDB.Instance._wpMapS1[wps1]._wpStartup;
         _wpDelay = WeaponDB.Instance._wpMapS1[wps1]._wpDelay;
-
-        _useMagazine = _wpMagazine;
-
-        _weapon = _ps._weaponS1;
-        _weapon.GetComponent<WeaponSet>()._ps = _ps;
-        _weapon.GetComponent<WeaponSet>().SetWeaponStat(_wpDmg, _wpRan);
     }
 
     void AttackCheck()

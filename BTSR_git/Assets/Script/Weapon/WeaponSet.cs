@@ -27,7 +27,7 @@ using Photon.Realtime;
 
 public class WeaponSet : MonoBehaviourPun
 {
-    public PlayerStatus _ps;
+    //public PlayerStatus _ps;
     PhotonView _pv;
 
     [SerializeField] GameObject _bulletContain;
@@ -59,25 +59,13 @@ public class WeaponSet : MonoBehaviourPun
 
     public void Attack(Vector3 vec, bool hit)
     {
+        //_bulletContain.GetComponent<BulletContainer>().Dequeue(_muzzle.position, vec, hit); // 솔로일땐 이거 바로 호출하도록 설계?
+        AttackRPC(vec, hit);
+    }
+
+    [PunRPC]
+    public void AttackRPC(Vector3 vec, bool hit)
+    {
         _bulletContain.GetComponent<BulletContainer>().Dequeue(_muzzle.position, vec, hit);
     }
-
-    public void Attack()
-    {
-        /* 생산방식, 오브젝트풀 방식으로 연구해볼것.
-         * PhotonNetwork.Instantiate(_shot.name, _muzzle.position, _ps.transform.rotation)
-            .GetComponent<PhotonView>().RPC("SetStat", RpcTarget.AllBuffered, _wpDmg, _wpRan);
-         */
-    }
-
-    /* 안쓸듯?
-    [PunRPC]
-    void AttackRPC() // rpc? 아니면 photonnetwork.Instantiate?
-    {
-        GameObject shot = Instantiate(_shot, _muzzle.position, _ps.transform.rotation);
-        // 방법 연구해
-        //shot.GetComponent<BulletStat>().SetDmg(_wpDmg);
-        //shot.GetComponent<BulletStat>()._range = _wpRan;
-    }
-     */
 }

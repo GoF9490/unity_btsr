@@ -11,17 +11,27 @@ public class Player_Awake : MonoBehaviourPun
     [SerializeField] Player_Lookat _pl;
     [SerializeField] Player_WeaponS1 _pw;
     [SerializeField] Player_Dodge _pd;
+    [SerializeField] HealthStatus _hs;
 
     void Start()
     {
         _pv = this.gameObject.GetComponent<PhotonView>();
+        _ps = this.gameObject.GetComponent<PlayerStatus>();
+        _pm = this.gameObject.GetComponent<Player_Move>();
+        _pl = this.gameObject.GetComponent<Player_Lookat>();
+        _pw = this.gameObject.GetComponent<Player_WeaponS1>();
+        _pd = this.gameObject.GetComponent<Player_Dodge>();
+        _hs = this.gameObject.GetComponent<HealthStatus>();
+
         if (_pv.IsMine)
         {
             _pv.RPC("PlayerCharaSet", RpcTarget.AllBuffered, PlayerDataCon.Instance.GetCharaNum());
             _pv.RPC("PlayerWpS1Set", RpcTarget.AllBuffered, PlayerDataCon.Instance.GetWeaponS1Num());
         }
         _ps.enabled = true;
-        TeamList.Instance.AddTeam("Player", this.gameObject);
+        _hs.enabled = true; // 지켜보자
+        //TeamList.Instance.AddTeam("Player", this.gameObject);
+        TeamList.Instance.SerchTeam();
 
         if (_pv.IsMine)
         {
@@ -41,7 +51,9 @@ public class Player_Awake : MonoBehaviourPun
         charaObj.transform.parent = this.transform;
         charaObj.transform.localPosition = new Vector3(0, 0, 0);
         charaObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+        _hs.SetMaxHP(charaNum);
         charaObj.SetActive(true);
+        HPUIMnanger.Instance.HPUI_On(GameManager.Instance.GetLocalNum());
         //Debug.Log("캐릭터 모델링 세팅");
     }
 
@@ -54,7 +66,8 @@ public class Player_Awake : MonoBehaviourPun
         wps1Obj.transform.parent = this.gameObject.GetComponentInChildren<EquipPoint>()._handR.transform;
         wps1Obj.transform.localPosition = new Vector3(0, 0, 0);
         wps1Obj.transform.localEulerAngles = new Vector3(0, 0, 0);
-        this.gameObject.GetComponent<PlayerStatus>()._weaponS1 = wps1Obj;
+        _ps._weaponS1 = wps1Obj;
+        _pw.SetWeaponStat(wps1Num);
         wps1Obj.SetActive(true);
         //Debug.Log("무기 모델링 세팅");
     }

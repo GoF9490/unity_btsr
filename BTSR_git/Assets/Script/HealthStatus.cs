@@ -7,10 +7,11 @@ public class HealthStatus : MonoBehaviourPun
 {
     PhotonView _pv;
 
-    [SerializeField] int _maxHP = 0;
-    int _hp = 0;
+    [SerializeField] int _maxHP = 1;
+    [SerializeField] int _hp = 1;
 
     [SerializeField] bool _dead = false;
+    //[SerializeField] bool _player = false;
     [SerializeField] bool _enemy = false;
 
     private void Start()
@@ -30,6 +31,12 @@ public class HealthStatus : MonoBehaviourPun
                 _pv.RPC("ChangeHP_RPC", RpcTarget.AllBuffered, _hp);
             }
         }
+    }
+
+    public void SetMaxHP(int chara)
+    {
+        _maxHP = CharaDB.Instance._charaMap[chara]._charaHP;
+        _hp = _maxHP;
     }
 
     [PunRPC]
