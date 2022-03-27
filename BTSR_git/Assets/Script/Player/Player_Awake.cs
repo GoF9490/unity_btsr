@@ -25,7 +25,7 @@ public class Player_Awake : MonoBehaviourPun
 
         if (_pv.IsMine)
         {
-            _pv.RPC("PlayerCharaSet", RpcTarget.AllBuffered, PlayerDataCon.Instance.GetCharaNum());
+            _pv.RPC("PlayerCharaSet", RpcTarget.AllBuffered, PlayerDataCon.Instance.GetCharaNum(), GameManager.Instance.GetLocalNum());
             _pv.RPC("PlayerWpS1Set", RpcTarget.AllBuffered, PlayerDataCon.Instance.GetWeaponS1Num());
         }
         _ps.enabled = true;
@@ -43,7 +43,7 @@ public class Player_Awake : MonoBehaviourPun
     }
 
     [PunRPC]
-    void PlayerCharaSet(int charaNum)
+    void PlayerCharaSet(int charaNum, int localNum)
     {
         //int charaNum = PlayerDataCon.Instance.GetCharaNum();
         GameObject charaObj0 = CharaDB.Instance.gameObject.transform.GetChild(charaNum - 1).gameObject;
@@ -53,7 +53,7 @@ public class Player_Awake : MonoBehaviourPun
         charaObj.transform.localEulerAngles = new Vector3(0, 0, 0);
         _hs.SetMaxHP(charaNum);
         charaObj.SetActive(true);
-        HPUIMnanger.Instance.HPUI_On(GameManager.Instance.GetLocalNum());
+        HPUIMnanger.Instance.HPUI_On(localNum);
         //Debug.Log("캐릭터 모델링 세팅");
     }
 
