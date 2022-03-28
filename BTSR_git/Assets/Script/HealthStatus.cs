@@ -22,12 +22,12 @@ public class HealthStatus : MonoBehaviourPun
 
     public void ReduceHP(int dmg)
     {
-        if (PhotonNetwork.IsMasterClient && _enemy)
+        if (_enemy)
         {
             if (!_dead)
             {
                 _hp -= dmg;
-                _pv.RPC("ChangeHP_RPC", RpcTarget.AllBuffered, _hp);
+                _pv.RPC("ChangeHP_RPC", RpcTarget.AllBuffered, _hp, 0);
             }
         }
         else if (_enemy == false && _pv.IsMine)

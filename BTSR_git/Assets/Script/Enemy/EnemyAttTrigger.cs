@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class EnemyAttTrigger : MonoBehaviour
+public class EnemyAttTrigger : MonoBehaviourPun
 {
     GameObject _obj;
     bool _start = false;
@@ -17,7 +18,7 @@ public class EnemyAttTrigger : MonoBehaviour
             else if (_timer <= 0)
             {
                 _obj.SendMessage(_pattern);
-                Destroy(this.gameObject);
+                this.gameObject.GetComponent<PhotonView>().RPC("DestroyObj", RpcTarget.AllBuffered);
             }
         }
     }
@@ -29,4 +30,11 @@ public class EnemyAttTrigger : MonoBehaviour
         this._pattern = pattern;
         this._start = true;
     }
+
+    [PunRPC]
+    void DestroyObj()
+    {
+        Destroy(this.gameObject);
+    }
+
 }
