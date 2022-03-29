@@ -22,6 +22,7 @@ public class EnemyAttack : MonoBehaviour
             if (obj.GetComponent<HealthStatus>())
             {
                 obj.GetComponent<HealthStatus>().ReduceHP(_damage);
+                obj.GetComponent<Rigidbody>().AddForce(transform.forward * 10, ForceMode.Impulse);
             }
 
             if (_once) gameObject.GetComponent<BoxCollider>().enabled = false;

@@ -76,7 +76,7 @@ public class Boss01_Pattern : EnemyPattern
 
         _dashPoint = _dashPointObj.position;
         PhotonNetwork.Instantiate(_dashRange.name, transform.position, transform.rotation)
-            .GetComponent<EnemyAttTrigger>().AttTrigger(this.gameObject, 1, "Dash1");
+            .GetComponent<EnemyAttTrigger>().AttTrigger(this.gameObject, 0.5f, "Dash1");
     }
 
     void Dash1()

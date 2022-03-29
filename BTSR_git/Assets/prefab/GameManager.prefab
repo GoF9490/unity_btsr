@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _enemy: {fileID: 0}
   _mousePosition: {fileID: 2136552479829173698, guid: 3806c02a84afd9846982d2818ebd0a9b,
     type: 3}
   _dirCon: {fileID: 8700732915879123222, guid: ce01c5d9184f1d34d9c0d9c0e5e8df1e, type: 3}
