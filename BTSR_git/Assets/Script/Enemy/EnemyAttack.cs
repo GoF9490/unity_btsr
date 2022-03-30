@@ -19,11 +19,8 @@ public class EnemyAttack : MonoBehaviour
         if (obj.tag.Equals("Player"))
         {
             Debug.Log("hit");
-            if (obj.GetComponent<HealthStatus>())
-            {
-                obj.GetComponent<HealthStatus>().ReduceHP(_damage);
-                obj.GetComponent<Rigidbody>().AddForce(transform.forward * 10, ForceMode.Impulse);
-            }
+            if (obj.GetComponent<HealthStatus>()) obj.GetComponent<HealthStatus>().ReduceHP(_damage);
+            if (obj.GetComponent<Player_Move>()) obj.GetComponent<Player_Move>().FMovement(obj.transform.position + transform.forward * 50, 3);
 
             if (_once) gameObject.GetComponent<BoxCollider>().enabled = false;
         }
