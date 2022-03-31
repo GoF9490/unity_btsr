@@ -51,9 +51,9 @@ public class Player_Awake : MonoBehaviourPun
         charaObj.transform.parent = this.transform;
         charaObj.transform.localPosition = new Vector3(0, 0, 0);
         charaObj.transform.localEulerAngles = new Vector3(0, 0, 0);
-        _hs.SetMaxHP(charaNum);
         charaObj.SetActive(true);
         HPUIMnanger.Instance.HPUI_On(localNum);
+        _hs.SetMaxHP(charaNum);
         //Debug.Log("캐릭터 모델링 세팅");
     }
 

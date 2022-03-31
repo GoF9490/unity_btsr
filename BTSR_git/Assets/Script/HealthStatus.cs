@@ -42,8 +42,12 @@ public class HealthStatus : MonoBehaviourPun
 
     public void SetMaxHP(int chara)
     {
-        _maxHP = CharaDB.Instance._charaMap[chara]._charaHP;
-        _hp = _maxHP;
+        if (CharaDB.Instance._charaMap.ContainsKey(chara))
+        {
+            _maxHP = CharaDB.Instance._charaMap[chara]._charaHP;
+            _hp = _maxHP;
+        }
+        //else SetMaxHP(chara);
     }
 
     [PunRPC]

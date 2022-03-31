@@ -61,10 +61,13 @@ public class Player_Move : MonoBehaviour
 
     public void FMovement(Vector3 vec, float speed)
     {
-        _ps.SetDelay(true); // 나중에 if문으로 예외처리 넣을지도
-        _dashPoint = vec;
-        _dashSpeed = speed;
-        _dash = true;
+        if (this.enabled)
+        {
+            _ps.SetDelay(true); // 나중에 if문으로 예외처리 넣을지도
+            _dashPoint = vec;
+            _dashSpeed = speed;
+            _dash = true;
+        }
     }
 
     void Dash()
