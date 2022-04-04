@@ -30,6 +30,7 @@ public class TextManager : MonoBehaviour
 
     public void StartText()
     {
+        Time.timeScale = 0;
         _num = 1;
     }
 
@@ -38,6 +39,7 @@ public class TextManager : MonoBehaviour
         if (_num > _lastNum)
         {
             _txt.text = "End";
+            Time.timeScale = 1;
         }
 
         else if (_num > 0)
@@ -50,6 +52,7 @@ public class TextManager : MonoBehaviour
     {
         if (_num <= _lastNum)
         {
+            //Time.timeScale = 0;
             _num += 1;
         }
     }
