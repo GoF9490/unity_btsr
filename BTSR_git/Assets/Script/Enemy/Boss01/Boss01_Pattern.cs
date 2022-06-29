@@ -92,6 +92,12 @@ public class Boss01_Pattern : EnemyPattern
 
     void Anim(bool stay, bool ready, bool bite)
     {
+        _pv.RPC("Anim_RPC", RpcTarget.AllBuffered, stay, ready, bite);
+    }
+
+    [PunRPC]
+    void Anim_RPC(bool stay, bool ready, bool bite)
+    {
         _animator.SetBool("Stay", stay);
         _animator.SetBool("Ready", ready);
         _animator.SetBool("Bite", bite);
