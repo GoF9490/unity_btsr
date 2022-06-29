@@ -14,6 +14,7 @@ public class Boss01_Pattern : EnemyPattern
     [Header("DashPattern")]
     [SerializeField] GameObject _dashRange;
     [SerializeField] Transform _dashPointObj;
+    [SerializeField] Animator _animator;
     Vector3 _dashPoint;
     float _dashTime = 0;
     bool _dash = false;
@@ -25,6 +26,7 @@ public class Boss01_Pattern : EnemyPattern
         _tf = this.gameObject.transform;
         _rb = this.gameObject.GetComponent<Rigidbody>();
         _dashPointObj = _tf.Find("DashPoint");
+        Anim(true, false, false);
     }
 
     private void FixedUpdate()
@@ -62,6 +64,7 @@ public class Boss01_Pattern : EnemyPattern
                 _patternCool = 1;
                 _pattern = 0;
                 _attackObj[0].SetActive(false);
+                Anim(true, false, false);
             }
         }
     }
@@ -77,11 +80,20 @@ public class Boss01_Pattern : EnemyPattern
         _dashPoint = _dashPointObj.position;
         PhotonNetwork.Instantiate(_dashRange.name, transform.position, transform.rotation)
             .GetComponent<EnemyAttTrigger>().AttTrigger(this.gameObject, 0.5f, "Dash1");
+        Anim(false, true, false);
     }
 
     void Dash1()
     {
         _attackObj[0].SetActive(true);
         _dash = true;
+        Anim(false, false, true);
+    }
+
+    void Anim(bool stay, bool ready, bool bite)
+    {
+        _animator.SetBool("Stay", stay);
+        _animator.SetBool("Ready", ready);
+        _animator.SetBool("Bite", bite);
     }
 }
